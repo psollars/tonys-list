@@ -11,6 +11,9 @@ import {
 import { SetStateAction, useEffect, useState } from "react";
 import { GroceryItem, KEY, GroceryListItem } from "./types";
 
+// #AD1F30
+// #0A623A
+
 export default function App() {
   const [value, setValue] = useState<GroceryItem>({ label: "", aisle: "" });
   const [inputValue, setInputValue] = useState("");
