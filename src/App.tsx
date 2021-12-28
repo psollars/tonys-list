@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { SetStateAction, useEffect, useState } from "react";
+import Header from "./Header";
 import { GroceryItem, KEY, GroceryListItem } from "./types";
 
 // #AD1F30
@@ -46,12 +47,7 @@ export default function App() {
 
   return (
     <>
-      <Grid container spacing={2}>
-        <Typography variant="h1">Tony's List</Typography>
-        <Typography variant="h3" component="h2">
-          🍏🥩🫑🍺🥚🍋
-        </Typography>
-      </Grid>
+      <Header />
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Autocomplete
