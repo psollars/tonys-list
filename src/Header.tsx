@@ -4,11 +4,16 @@ export default function Header() {
   return (
     <Grid
       container
-      sx={{ padding: 2, borderBottom: "4px solid #0A623A" }}
+      sx={{
+        margin: 0,
+        width: "unset",
+        padding: 2,
+        borderBottom: "4px solid #0A623A",
+      }}
       spacing={2}
     >
       <Grid item xs={6}>
-        <Typography sx={{ color: "#AD1F30" }} variant="h1">
+        <Typography sx={{ color: "#AD1F30" }} variant="h2" component="h1">
           Tony's List
         </Typography>
       </Grid>
@@ -16,7 +21,7 @@ export default function Header() {
         <Typography
           sx={{ display: "flex", justifyContent: "flex-end" }}
           variant="h3"
-          component="h2"
+          component="div"
         >
           🍏🥩🫑🍺🥚🍋
         </Typography>

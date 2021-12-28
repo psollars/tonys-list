@@ -48,7 +48,11 @@ export default function App() {
   return (
     <>
       <Header />
-      <Grid container spacing={2}>
+      <Grid
+        sx={{ height: "calc(100vh - 124px)", margin: 0, width: "unset" }}
+        container
+        spacing={2}
+      >
         <Grid item xs={6}>
           <Autocomplete
             disablePortal
