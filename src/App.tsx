@@ -9,21 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 import { SetStateAction, useEffect, useState } from "react";
-
-enum KEY {
-  GROCERY_ITEMS = "GROCERY_ITEMS",
-  LIST_ITEMS = "LIST_ITEMS",
-}
-type groceryItem = { label: string; aisle: string };
-type listItem = groceryItem & {
-  id: string;
-  quantity: string;
-  notes: string;
-  checked: boolean;
-};
+import { GroceryItem, KEY, GroceryListItem } from "./types";
 
 export default function App() {
-  const [value, setValue] = useState<groceryItem>({ label: "", aisle: "" });
+  const [value, setValue] = useState<GroceryItem>({ label: "", aisle: "" });
   const [inputValue, setInputValue] = useState("");
   const [groceryItems, setGroceryItems] = usePersistentState(
     KEY.GROCERY_ITEMS,
@@ -31,17 +20,17 @@ export default function App() {
   );
   const [listItems, setListItems] = usePersistentState(KEY.LIST_ITEMS, "[]");
 
-  const parsedGroceryItems: groceryItem[] = JSON.parse(groceryItems);
-  const parsedListItems: listItem[] = JSON.parse(listItems);
+  const parsedGroceryItems: GroceryItem[] = JSON.parse(groceryItems);
+  const parsedListItems: GroceryListItem[] = JSON.parse(listItems);
   const listItemsBySection = parsedListItems.reduce(
-    (list, item): { section: string; item: listItem[] } => {
+    (list, item): { section: string; item: GroceryListItem[] } => {
       if (list.hasOwnProperty(item.aisle)) {
         return {
           ...list,
           [item.aisle]: [
             ...(list[
-              item.aisle as keyof { section: string; item: listItem[] }
-            ] as listItem[]),
+              item.aisle as keyof { section: string; item: GroceryListItem[] }
+            ] as GroceryListItem[]),
             item,
           ],
         };
@@ -49,7 +38,7 @@ export default function App() {
 
       return { ...list, [item.aisle]: [item] };
     },
-    {} as { section: string; item: listItem[] }
+    {} as { section: string; item: GroceryListItem[] }
   );
 
   return (
@@ -112,11 +101,13 @@ export default function App() {
               <li key={section}>
                 <ul>
                   <ListSubheader>{section}</ListSubheader>
-                  {(listItems as listItem[]).map((item: listItem) => (
-                    <ListItem key={item.id}>
-                      <ListItemText primary={item.label} />
-                    </ListItem>
-                  ))}
+                  {(listItems as GroceryListItem[]).map(
+                    (item: GroceryListItem) => (
+                      <ListItem key={item.id}>
+                        <ListItemText primary={item.label} />
+                      </ListItem>
+                    )
+                  )}
                 </ul>
               </li>
             ))}
