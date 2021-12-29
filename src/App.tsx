@@ -5,6 +5,7 @@ import { usePersistentState } from "./hooks";
 import { GroceryItem, KEY, GroceryListItem } from "./types";
 import defaultGroceries from "./groceries.json";
 import GroceryList from "./GroceryList";
+import { groupGroceryListItemsBySection } from "./utils";
 
 // #AD1F30
 // #0A623A
@@ -20,24 +21,7 @@ export default function App() {
 
   const parsedGroceryItems: GroceryItem[] = JSON.parse(groceryItems);
   const parsedListItems: GroceryListItem[] = JSON.parse(listItems);
-  const listItemsBySection = parsedListItems.reduce(
-    (list, item): { section: string; item: GroceryListItem[] } => {
-      if (list.hasOwnProperty(item.aisle)) {
-        return {
-          ...list,
-          [item.aisle]: [
-            ...(list[
-              item.aisle as keyof { section: string; item: GroceryListItem[] }
-            ] as GroceryListItem[]),
-            item,
-          ],
-        };
-      }
-
-      return { ...list, [item.aisle]: [item] };
-    },
-    {} as { section: string; item: GroceryListItem[] }
-  );
+  const listItemsBySection = groupGroceryListItemsBySection(parsedListItems);
 
   return (
     <>
