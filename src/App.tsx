@@ -11,6 +11,7 @@ import { useState } from "react";
 import Header from "./Header";
 import { usePersistentState } from "./hooks";
 import { GroceryItem, KEY, GroceryListItem } from "./types";
+import defaultGroceries from "./groceries.json";
 
 // #AD1F30
 // #0A623A
@@ -120,8 +121,3 @@ export default function App() {
     </>
   );
 }
-
-const defaultGroceries = [
-  { label: "Grapes", aisle: "3" },
-  { label: "Salad", aisle: "deli" },
-];
