@@ -6,10 +6,10 @@ import {
   ListItemText,
   ListSubheader,
   TextField,
-  Typography,
 } from "@mui/material";
-import { SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "./Header";
+import { usePersistentState } from "./hooks";
 import { GroceryItem, KEY, GroceryListItem } from "./types";
 
 // #AD1F30
@@ -125,18 +125,3 @@ const defaultGroceries = [
   { label: "Grapes", aisle: "3" },
   { label: "Salad", aisle: "deli" },
 ];
-
-function usePersistentState(
-  key: string,
-  defaultValue: string
-): [string, React.Dispatch<SetStateAction<string>>] {
-  const initialValue =
-    localStorage.getItem(`TONYS_LIST_${key}`) || defaultValue;
-  const [value, setValue] = useState(initialValue);
-
-  useEffect(() => {
-    localStorage.setItem(`TONYS_LIST_${key}`, value);
-  });
-
-  return [value, setValue];
-}
