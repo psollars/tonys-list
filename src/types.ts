@@ -7,7 +7,7 @@ export type GroceryItem = { label: string; aisle: string };
 
 export type GroceryListItem = GroceryItem & {
   id: string;
-  quantity: string;
+  quantity: number;
   notes: string;
   checked: boolean;
 };

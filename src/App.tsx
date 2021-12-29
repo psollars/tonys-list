@@ -6,6 +6,7 @@ import { GroceryItem, KEY, GroceryListItem } from "./types";
 import defaultGroceries from "./groceries.json";
 import GroceryList from "./GroceryList";
 import { groupGroceryListItemsBySection } from "./utils";
+import { v4 as uuidv4 } from "uuid";
 
 // #AD1F30
 // #0A623A
@@ -42,7 +43,14 @@ export default function App() {
               console.log(newValue, reason);
 
               if (reason === "createOption") {
-                const newItem = { label: newValue as string, aisle: "new" };
+                const newItem: GroceryListItem = {
+                  id: uuidv4(),
+                  label: newValue as string,
+                  aisle: "new",
+                  quantity: 1,
+                  notes: "",
+                  checked: false,
+                };
                 setListItems(JSON.stringify([...parsedListItems, newItem]));
                 setGroceryItems(
                   JSON.stringify([...parsedGroceryItems, newItem])
@@ -52,7 +60,14 @@ export default function App() {
               }
 
               if (newValue && typeof newValue === "object") {
-                setListItems(JSON.stringify([...parsedListItems, newValue]));
+                const newItem: GroceryListItem = {
+                  ...newValue,
+                  id: uuidv4(),
+                  quantity: 1,
+                  notes: "",
+                  checked: false,
+                };
+                setListItems(JSON.stringify([...parsedListItems, newItem]));
                 setValue(newValue);
               }
             }}
